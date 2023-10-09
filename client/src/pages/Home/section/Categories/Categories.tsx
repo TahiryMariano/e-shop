@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Categories.module.scss";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ const Categories = () => {
           <img src="https://picsum.photos/id/122/640/320" alt="" />
           <button>
             <Link className={styles.link} to="/products/1">
-              Sale
+              Men
             </Link>
           </button>
         </div>
@@ -18,7 +17,7 @@ const Categories = () => {
           <img src="https://picsum.photos/id/128/640/320" alt="" />
           <button>
             <Link className={styles.link} to="/products/1">
-              Sale
+              women
             </Link>
           </button>
         </div>
