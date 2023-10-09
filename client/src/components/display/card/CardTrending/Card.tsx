@@ -14,20 +14,53 @@ type CardProps = {
   };
 };
 
-const Card = (props: CardProps) => {
-  const { id, img, img2, title, isNew, oldPrice, Price } = props.item;
+type props = {
+  item: {
+    id: string | number;
+    attributes: {
+      createdAt: string;
+      description: string;
+      isNew: boolean;
+      price: number;
+      img: any;
+      img2: any;
+      oldPrice: number;
+      publishedAt: string;
+      title: string;
+      type: string;
+      updatedAt: string;
+    };
+  };
+};
+
+const Card = (props: props) => {
+  const { id, attributes } = props.item;
   return (
     <Link className={styles.link} to={`/product/${id}`}>
       <div className={styles.card}>
         <div className={styles.images}>
-          {isNew && <span className={styles.isNew}>New Season</span>}
-          <img src={img} alt="" className={styles.mainImage} />
-          <img src={img2} alt="" className={styles.secondImage} />
+          {attributes.isNew && <span className={styles.isNew}>New Season</span>}
+          <img
+            src={
+              import.meta.env.VITE_REACT_APP_UPLOAD_URL +
+              attributes?.img?.data?.attributes?.url
+            }
+            alt="main image"
+            className={styles.mainImage}
+          />
+          <img
+            src={
+              import.meta.env.VITE_REACT_APP_UPLOAD_URL +
+              attributes?.img2?.data?.attributes?.url
+            }
+            alt="second image"
+            className={styles.secondImage}
+          />
         </div>
-        <h2 className={styles.title}>{title}</h2>
+        <h2 className={styles.title}>{attributes.title}</h2>
         <div className={styles.prices}>
-          <h3>{oldPrice} </h3>
-          <h3>{Price} </h3>
+          <h3>{attributes?.oldPrice || attributes.price + 20} </h3>
+          <h3>{attributes.price} </h3>
         </div>
       </div>
     </Link>
