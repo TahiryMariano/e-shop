@@ -33,7 +33,9 @@ const Product = () => {
 
   return (
     <div className={styles.product}>
-      {loading ? (
+      {error ? (
+        "something went wrong"
+      ) : loading ? (
         "loading..."
       ) : (
         <>
@@ -42,7 +44,7 @@ const Product = () => {
               <img
                 src={
                   import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                  data?.attributes.img.data.attributes.url
+                  data?.attributes?.img?.data?.attributes?.url
                 }
                 alt="side image 1"
                 onClick={(e) => setSelectedImg("img")}
@@ -50,7 +52,7 @@ const Product = () => {
               <img
                 src={
                   import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                  data?.attributes.img2.data.attributes.url
+                  data?.attributes?.img2?.data?.attributes?.url
                 }
                 alt="side image 2"
                 onClick={(e) => setSelectedImg("img2")}
@@ -60,16 +62,16 @@ const Product = () => {
               <img
                 src={
                   import.meta.env.VITE_REACT_APP_UPLOAD_URL +
-                  data?.attributes[selectedImg].data.attributes.url
+                  data?.attributes[selectedImg]?.data?.attributes.url
                 }
                 alt="main image"
               />
             </div>
           </div>
           <div className={styles.right}>
-            <h1>{data.attributes.title}</h1>
-            <span className={styles.price}>${data.attributes.price}</span>
-            <p>{data.attributes.description}</p>
+            <h1>{data?.attributes?.title}</h1>
+            <span className={styles.price}>${data?.attributes?.price}</span>
+            <p>{data?.attributes?.description}</p>
             <div className={styles.quantity}>
               <button
                 onClick={(e) =>
