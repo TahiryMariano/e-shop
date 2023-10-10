@@ -1,6 +1,9 @@
 import React from "react";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import styles from "./Cart.module.scss";
+import { AppDispatch, useAppSelector } from "../../../store/store";
+import { removeItem, resetCart } from "../../../store/features/CartSlice";
+import { useDispatch } from "react-redux";
 
 const Cart = () => {
   const data = [
@@ -26,26 +29,45 @@ const Cart = () => {
     },
   ];
 
+  const dispatch = useDispatch<AppDispatch>();
+
+  const products = useAppSelector((state) => state.cart.products);
+  const totalPrice = () => {
+    let total = 0;
+    products.forEach((item) => (total += item.quantity * item.price));
+    return total.toFixed(2);
+  };
+
   return (
     <div className={styles.cart}>
       <h1>Products in your cart</h1>
-      {data.map((item) => (
+      {products.map((item) => (
         <div className={styles.item} key={item.id}>
-          <img src={item.img} alt="" />
+          <img
+            src={import.meta.env.VITE_REACT_APP_UPLOAD_URL + item.img}
+            alt=""
+          />
           <div className={styles.details}>
             <h1>{item.title} </h1>
-            <p>{item.desc.substring(0, 100)} </p>
-            <div className={styles.price}>1 x ${item.Price}</div>
+            <p>{item?.description?.substring(0, 100)} </p>
+            <div className={styles.price}>
+              {item.quantity} x ${item.price}
+            </div>
           </div>
-          <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+          <DeleteOutlineOutlinedIcon
+            className={styles.deleteBtn}
+            onClick={() => dispatch(removeItem(item.id))}
+          />
         </div>
       ))}
       <div className={styles.total}>
         <span>TOTAL</span>
-        <span>$123</span>
+        <span>${totalPrice()}</span>
       </div>
       <button className={styles.checkout}>PROCEED TO CHECKOUT</button>
-      <span className={styles.reset}>Reset cart</span>
+      <span className={styles.reset} onClick={() => dispatch(resetCart())}>
+        Reset cart
+      </span>
     </div>
   );
 };
