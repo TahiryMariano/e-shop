@@ -7,9 +7,12 @@ import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Cart from "../../components/display/cart/Cart";
+import { useAppSelector } from "../../store/store";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const products = useAppSelector((state) => state.cart.products);
+
   return (
     <div className={styles.navbar}>
       <div className={styles.wrapper}>
@@ -73,7 +76,7 @@ const Navbar = () => {
             <FavoriteBorderOutlinedIcon />
             <div className={styles.cartIcon} onClick={() => setOpen(!open)}>
               <ShoppingCartOutlinedIcon />
-              <span>0</span>
+              <span>{products.length}</span>
             </div>
           </div>
         </div>
