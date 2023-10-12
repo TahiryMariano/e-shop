@@ -7,29 +7,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { api } from "../../../api/api";
 
 const Cart = () => {
-  const data = [
-    {
-      id: 1,
-      img: "https://picsum.photos/id/117/640/320",
-      img2: "https://picsum.photos/id/118/640/320",
-      title: "Bleak House",
-      isNew: true,
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      oldPrice: "$4.74",
-      Price: "$3.96",
-    },
-    {
-      id: 2,
-      img: "https://picsum.photos/id/119/640/320",
-      img2: "https://picsum.photos/id/12/640/320",
-      title: "Canyon Passage",
-      isNew: false,
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      oldPrice: "$8.45",
-      Price: "$5.16",
-    },
-  ];
-
   const dispatch = useDispatch<AppDispatch>();
 
   const products = useAppSelector((state) => state.cart.products);
